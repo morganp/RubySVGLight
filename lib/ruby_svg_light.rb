@@ -9,8 +9,8 @@ module RubySVGLight
     def initialize( options={} )
       @options            = options
       @options[:name]   ||= ''
-      #@options[:width]  ||= 0
-      #@options[:height] ||= 0
+      @options[:width]  ||= :auto
+      @options[:height] ||= :auto
       @options[:stroke] ||= '#000000'
       @options[:stroke_width] ||= 1
       @options[:fill]   ||= 'white'
