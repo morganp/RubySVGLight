@@ -3,7 +3,7 @@ module RubySVGLight
   VERSION = '0.0.1'
 
   class Document
-    attr_accessor :stroke, :fill, :height, :width, :name, :font_size
+    attr_accessor :stroke, :fill, :name, :font_size
     attr_reader :body
 
     def initialize( options={} )
@@ -25,6 +25,23 @@ module RubySVGLight
       @width  = x if x > @width
       @height = y if y > @height
     end
+
+    def height
+      if @options[:height] == :auto
+        @height
+      else
+        @options[:height]
+      end
+    end
+
+    def width
+      if @options[:width] == :auto
+        @width
+      else
+        @options[:width]
+      end
+    end
+
 
     def header
       text = %{<?xml version="1.0" encoding="UTF-8" standalone="no"?>
