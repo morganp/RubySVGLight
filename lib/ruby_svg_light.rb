@@ -1,5 +1,7 @@
 
 module RubySVGLight
+  VERSION = '0.0.1'
+
   class Document
     attr_accessor :stroke, :fill, :height, :width, :name, :font_size
     attr_reader :body
