@@ -62,57 +62,67 @@ module RubySVGLight
 
 
 
-    def circle(x=0, y=0, radius=10)
+    def circle(x=0, y=0, radius=10, opts={})
+      local_options = calc_local_options(opts)
       text = %{<circle
-      cx="#{x}" 
-      cy="#{y}" 
+      cx="#{x}" cy="#{y}" 
       r="#{radius}" 
-      stroke="#{@options[:stroke]}"
-      stroke-width="#{@options[:stroke_width]}" 
-      fill="#{@options[:fill]}"/>
+      stroke="#{local_options[:stroke]}"
+      stroke-width="#{local_options[:stroke_width]}" 
+      fill="#{local_options[:fill]}"/>
       }
 
+      #The call below should be in method missing add_[circle|line|rectangle]
       update_size(x+radius, y+radius)
-      #The call below should be in method missing
       @body << text
     end
 
-    def line(x,y,w,h)
-      text = %{<path
-       style="fill:none;stroke:#{@options[:stroke]};stroke-width:#{@options[:stroke_width]};stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m #{x},#{y} l #{w},#{h}"
+    def line(x,y,w,h, opts={})
+      local_options = calc_local_options(opts)
+      text = %{<line
+       x1="#{x}" y1="#{y}" 
+       x2="#{x+w}" y2="#{y+h}"
+       stroke="#{local_options[:stroke]}"
+       stroke-width="#{local_options[:stroke_width]}"
        />
        }
+       #path d="m #{x},#{y} l #{x+w},#{y+h}"
 
       update_size(x+w, y+h)
       @body << text
     end
 
-    def rectangle(x,y,width,height)
+    def rectangle(x,y,width,height, opts={})
+      local_options = calc_local_options(opts)
       text = %{<rect
-       style="fill:#{@options[:fill]};stroke:#{@options[:stroke]};stroke-width:#{@options[:stroke_width]};stroke-linecap:butt;stroke-linejoin:miter;"
-       width="#{width}"
-       height="#{height}"
-       x="#{x}"
-       y="#{y}" />
+       x="#{x}"         y="#{y}"
+       width="#{width}" height="#{height}"
+       fill="#{local_options[:fill]}"
+       stroke="#{local_options[:stroke]}"
+       stroke-width="#{local_options[:stroke_width]}"
+       />
        }
       update_size(x+width, y+height)
       @body << text
     end
 
-    def text(x,y, input_text, size=@options[:font_size])
+    def text(x,y, input_text, opts={})
       centre_text = "text-anchor:middle; dominant-baseline:central;"
+      local_options = calc_local_options(opts)
 
 
       #Stroke is outline
       #fill is normal font. ie for text fill gets stroke colour
       text = %{<text
-       xml:space="preserve"
-       style="font-size:#{size};font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#{@options[:stroke]};fill-opacity:1;stroke:none;font-family:Sans;#{centre_text}"
-       <tspan
-         x="#{x}"
-         y="#{y}">#{input_text}</tspan></text>
+       x="#{x}" y="#{y}"
+       font-size="#{local_options[:font_size]}"
+       fill="#{local_options[:stroke]}"
+       font-family="Sans"
+       >#{input_text}
+       </text>
 }
+      #{centre_text}"
+      # xml:space="preserve"
       #Do not know height or width of text only the anchor 
       update_size(x, y)
       @body << text
@@ -123,7 +133,9 @@ module RubySVGLight
       @body.each do |section|
         text << section
       end
-      return text
+      
+      #return
+      text
     end
 
     def components_only_to_s
@@ -131,16 +143,36 @@ module RubySVGLight
       @body.each do |section|
         text << section
       end
-      return text
+      
+      #return
+      text
     end
 
     def finalise
       #Maybe add the initial and closing things here so we are just noramlly dealing drawn components
       @body.insert(0,  header)
       @body.insert(-1, footer)
-
     end
 
+    def options(opts={})
+      opts.each_pair do |key,value|
+        @options[key] = value
+      end
+
+      #return 
+      @options
+    end
+
+    # Private method, for allowing overide options
+    def calc_local_options(opts={})
+      local_opts = @options.dup
+      opts.each_pair do |key,value|
+        local_opts[key] = value
+      end
+
+      #return
+      local_opts
+    end
 
     def to_file( filename )
       File.open(filename, 'w') do |f|
