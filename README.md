@@ -36,7 +36,7 @@ Examples
     a.circle(20,10,10)
     a.to_file('test.svg')
 
-Secon Example, From the Examples directory
+Second Example, From the Examples directory
 
     require 'ruby_svg_light'
     canvas = RubySVGLight::Document.new
