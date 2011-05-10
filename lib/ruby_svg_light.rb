@@ -6,14 +6,14 @@ module RubySVGLight
     attr_reader :body
 
     def initialize( options={} )
-      @options            = options
-      @options[:name]   ||= ''
-      @options[:width]  ||= :auto
-      @options[:height] ||= :auto
-      @options[:stroke] ||= '#000000'
+      @options                  = options
+      @options[:name]         ||= ''
+      @options[:width]        ||= :auto
+      @options[:height]       ||= :auto
+      @options[:stroke]       ||= '#000000'
       @options[:stroke_width] ||= 1
-      @options[:fill]   ||= 'white'
-      @options[:font_size] ||= '24px'
+      @options[:fill]         ||= 'white'
+      @options[:font_size]    ||= '24px'
 
       @width  = 0
       @height = 0
