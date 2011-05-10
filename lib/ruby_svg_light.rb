@@ -20,26 +20,6 @@ module RubySVGLight
       @body   = []
     end
 
-    def update_size(x,y)
-      @width  = x if x > @width
-      @height = y if y > @height
-    end
-
-    def height
-      if @options[:height] == :auto
-        @height
-      else
-        @options[:height]
-      end
-    end
-
-    def width
-      if @options[:width] == :auto
-        @width
-      else
-        @options[:width]
-      end
-    end
 
 
     def header
@@ -60,7 +40,7 @@ module RubySVGLight
 
 
 
-
+    ## Drawing methodds 
     def circle(x=0, y=0, radius=10, opts={})
       local_options = calc_local_options(opts)
       text = %{<circle
@@ -85,7 +65,7 @@ module RubySVGLight
        stroke-width="#{local_options[:stroke_width]}"
        />
        }
-       #path d="m #{x},#{y} l #{x+w},#{y+h}"
+      #path d="m #{x},#{y} l #{x+w},#{y+h}"
 
       update_size(x+w, y+h)
       @body << text
@@ -120,37 +100,11 @@ module RubySVGLight
        >#{input_text}
        </text>
 }
-      #{centre_text}"
-      # xml:space="preserve"
-      #Do not know height or width of text only the anchor 
-      update_size(x, y)
-      @body << text
-    end
-
-    def to_s
-      text = ""  
-      @body.each do |section|
-        text << section
-      end
-      
-      #return
-      text
-    end
-
-    def components_only_to_s
-      text = ""  
-      @body.each do |section|
-        text << section
-      end
-      
-      #return
-      text
-    end
-
-    def finalise
-      #Maybe add the initial and closing things here so we are just noramlly dealing drawn components
-      @body.insert(0,  header)
-      @body.insert(-1, footer)
+       #{centre_text}"
+       # xml:space="preserve"
+       #Do not know height or width of text only the anchor 
+       update_size(x, y)
+       @body << text
     end
 
     def options(opts={})
@@ -161,6 +115,66 @@ module RubySVGLight
       #return 
       @options
     end
+
+
+    def height
+      if @options[:height] == :auto
+        @height
+      else
+        @options[:height]
+      end
+    end
+
+    def width
+      if @options[:width] == :auto
+        @width
+      else
+        @options[:width]
+      end
+    end
+
+
+    def components_only_to_s
+      text = ""  
+      @body.each do |section|
+        text << section
+      end
+
+      #return
+      text
+    end
+
+    # To string includes header and footers
+    def to_s
+      text = ""  
+      text << self.header
+      @body.each do |section|
+        text << section
+      end
+      text << self.footer
+
+      #return
+      text
+    end
+
+
+    #def finalise
+    #  #Maybe add the initial and closing things here so we are just noramlly dealing drawn components
+    #  @body.insert(0,  header)
+    #  @body.insert(-1, footer)
+    #end
+
+    # to_file includes header and footers for a complete svg file
+    def to_file( filename )
+      File.open(filename, 'w') do |f|
+        f.puts self.header
+        @body.each do |section|
+          f.puts section
+        end
+        f.puts self.footer
+      end
+    end
+
 
     # Private method, for allowing overide options
     def calc_local_options(opts={})
@@ -173,15 +187,12 @@ module RubySVGLight
       local_opts
     end
 
-    def to_file( filename )
-      File.open(filename, 'w') do |f|
-        f.puts self.header
-        @body.each do |section|
-          f.puts section
-        end
-        f.puts self.footer
-      end
+    #Internal helper function for updating dimensions
+    def update_size(x,y)
+      @width  = x if x > @width
+      @height = y if y > @height
     end
+
   end
 end
 
