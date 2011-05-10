@@ -1,14 +1,22 @@
 RubySVG
 =======
 
+Install
+-------
+
+    gem install ruby_svg_light
+
+Usage
+-----
+
 Create a new document (canvas) with RubySVGLight::Document.new then add the shapes you require to it. Finally use to_file to generate the file or call to_s to return the string of the SVG (useful for webapps).
 
 Shapes available (x and y starting coordinates)
 
-   circle(x, y, radius)
-   rectangle(x, y, width, height)
-   line(x, y, width, height)
-   text(x, y, 'text')
+    circle(x, y, radius)  
+    rectangle(x, y, width, height)  
+    line(x, y, width, height)  
+    text(x, y, 'text')  
 
 All can take a options hash as a final option. Supported options are:
 
@@ -23,12 +31,14 @@ Global options can also be set by passing to new or options, as seen in second e
 Examples
 --------
 
+    require 'ruby_svg_light'
     a = RubySVGLight::Document.new()
     a.circle(20,10,10)
     a.to_file('test.svg')
 
 Secon Example, From the Examples directory
 
+    require 'ruby_svg_light'
     canvas = RubySVGLight::Document.new
     canvas.circle(40,40,20)
     canvas.rectangle(80,20,40,40)
