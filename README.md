@@ -54,3 +54,8 @@ Second Example, From the Examples directory
     
     canvas.to_file('shapes.svg')
 
+TODO
+----
+
+Improve Text Placement options
+Add support for path
