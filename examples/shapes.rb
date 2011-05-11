@@ -9,6 +9,7 @@ canvas.circle(40,40,20)
 canvas.rectangle(80,20,40,40)
 canvas.line(20,80,100,0)
 canvas.line(20,105,100,0)
+canvas.ellipse(200, 200, 20, 30)
 
 options = {:font_size=>'12px'}
 canvas.options(options)
