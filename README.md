@@ -1,5 +1,5 @@
-RubySVG
-=======
+RubySVGLight
+============
 
 Install
 -------
