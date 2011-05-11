@@ -1,12 +1,11 @@
-
-require File.join( '..', 'lib', 'ruby_svg_light')
+require 'spec_helper'
 
 def check_width_height(svg, width, height)
     svg.width.should    == width
     svg.height.should   == height
 end
 
-describe RubySVGLight, "RubySVGLight" do
+describe RubySVGLight do
   it "Check width calculations, objects from origin" do
     canvas = RubySVGLight::Document.new()
     check_width_height(canvas, 0, 0)
