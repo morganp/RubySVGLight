@@ -26,10 +26,10 @@ module RubySVGLight
       text = %{<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 
-<svg 
+<svg
  width="100%"
  height="100%"
- version="1.1" 
+ version="1.1"
  xmlns="http://www.w3.org/2000/svg">
  }
     end
@@ -40,14 +40,14 @@ module RubySVGLight
 
 
 
-    ## Drawing methodds 
+    ## Drawing methodds
     def circle(x=0, y=0, radius=10, opts={})
       local_options = calc_local_options(opts)
       text = %{<circle
-      cx="#{x}" cy="#{y}" 
-      r="#{radius}" 
+      cx="#{x}" cy="#{y}"
+      r="#{radius}"
       stroke="#{local_options[:stroke]}"
-      stroke-width="#{local_options[:stroke_width]}" 
+      stroke-width="#{local_options[:stroke_width]}"
       fill="#{local_options[:fill]}"/>
       }
 
@@ -59,7 +59,7 @@ module RubySVGLight
     def line(x,y,w,h, opts={})
       local_options = calc_local_options(opts)
       text = %{<line
-       x1="#{x}" y1="#{y}" 
+       x1="#{x}" y1="#{y}"
        x2="#{x+w}" y2="#{y+h}"
        stroke="#{local_options[:stroke]}"
        stroke-width="#{local_options[:stroke_width]}"
@@ -85,6 +85,20 @@ module RubySVGLight
       @body << text
     end
 
+    def ellipse(x,y,rx,ry, opts={})
+      local_options = calc_local_options(opts)
+      text = %{<ellipse
+       cx="#{x}" cy="#{y}"
+       rx="#{rx}" ry="#{ry}"
+       fill="#{local_options[:fill]}"
+       stroke="#{local_options[:stroke]}"
+       stroke-width="#{local_options[:stroke_width]}"
+        />
+      }
+      update_size(x+rx, y+ry)
+      @body << text
+    end
+
     def text(x,y, input_text, opts={})
       centre_text = "text-anchor:middle; dominant-baseline:central;"
       local_options = calc_local_options(opts)
@@ -100,11 +114,11 @@ module RubySVGLight
        >#{input_text}
        </text>
 }
-       #{centre_text}"
-       # xml:space="preserve"
-       #Do not know height or width of text only the anchor 
-       update_size(x, y)
-       @body << text
+      #{centre_text}"
+      # xml:space="preserve"
+      #Do not know height or width of text only the anchor
+      update_size(x, y)
+      @body << text
     end
 
     def options(opts={})
@@ -112,7 +126,7 @@ module RubySVGLight
         @options[key] = value
       end
 
-      #return 
+      #return
       @options
     end
 
@@ -135,7 +149,7 @@ module RubySVGLight
 
 
     def components_only_to_s
-      text = ""  
+      text = ""
       @body.each do |section|
         text << section
       end
@@ -146,7 +160,7 @@ module RubySVGLight
 
     # To string includes header and footers
     def to_s
-      text = ""  
+      text = ""
       text << self.header
       @body.each do |section|
         text << section

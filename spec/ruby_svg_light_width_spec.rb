@@ -19,6 +19,9 @@ describe RubySVGLight, "RubySVGLight" do
 
     canvas.circle(0,0,100)
     check_width_height(canvas, 100, 100)
+
+    canvas.ellipse(0, 0, 300, 400)
+    check_width_height(canvas, 300, 400)
   end
 
   it "Smaller new component should not shrink size" do
@@ -34,6 +37,9 @@ describe RubySVGLight, "RubySVGLight" do
 
     canvas.rectangle(0,0,10,20)
     check_width_height(canvas, 100, 100)
+
+    canvas.ellipse(0, 0, 10, 20)
+    check_width_height(canvas, 100, 100)
   end
 
   it "Check width calculations, objects not on origin" do
@@ -48,6 +54,9 @@ describe RubySVGLight, "RubySVGLight" do
 
     canvas.circle(10,15,100)
     check_width_height(canvas, 110, 115)
+
+    canvas.ellipse(100, 200, 30, 50)
+    check_width_height(canvas, 130, 250)
   end
 end
 
