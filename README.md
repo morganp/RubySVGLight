@@ -57,5 +57,5 @@ Second Example, From the Examples directory
 TODO
 ----
 
-Improve Text Placement options
+Improve text placement options
 Add support for path

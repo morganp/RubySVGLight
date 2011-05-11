@@ -5,7 +5,7 @@ HISTORY/Changelog
 -----
 
  Added Rakefile
- Added support for ecllipse
+ Added support for ellipse
 
 0.0.1
 -----
