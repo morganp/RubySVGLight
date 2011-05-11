@@ -11,12 +11,13 @@ Usage
 
 Create a new document (canvas) with RubySVGLight::Document.new then add the shapes you require to it. Finally use to_file to generate the file or call to_s to return the string of the SVG (useful for webapps).
 
-Shapes available (x and y starting coordinates)
+Shapes available (x and y starting coordinates and cx and cy center of circle and ellipse)
 
-    circle(x, y, radius)  
-    rectangle(x, y, width, height)  
-    line(x, y, width, height)  
-    text(x, y, 'text')  
+    circle(cx, cy, radius)
+    rectangle(x, y, width, height)
+    line(x, y, width, height)
+    text(x, y, 'text')
+    ellipse(cx, cy, horizontal_radius, vertical_radius)
 
 All can take a options hash as a final option. Supported options are:
 
