@@ -103,22 +103,46 @@ module RubySVGLight
       centre_text = "text-anchor:middle; dominant-baseline:central;"
       local_options = calc_local_options(opts)
 
+      text_vertical_centre  =  local_options[:text_centre] ||
+                               local_options[:text_vertical_middle] ||
+                               local_options[:text_vertical_centre] ||
+                               local_options[:text_v_middle] ||
+                               local_options[:text_v_centre]
+
+      text_horizontal_centre = local_options[:text_centre] ||
+                               local_options[:text_horizontal_middle] ||
+                               local_options[:text_horizontal_centre] ||
+                               local_options[:text_h_middle] ||
+                               local_options[:text_h_centre]
+
+
+      style = ""
+
+      style << "dominant-baseline: central; " if text_vertical_centre 
+
+      style << "text-anchor:top; "    if local_options[:text_horizontal_top]
+      style << "text-anchor:middle; " if text_horizontal_centre
+      style << "text-anchor:bottom; " if local_options[:text_horizontal_bottom]
+
 
       #Stroke is outline
       #fill is normal font. ie for text fill gets stroke colour
       text = %{<text
-       x="#{x}" y="#{y}"
-       font-size="#{local_options[:font_size]}"
+       x="#{x}" y="#{y}" \n}
+      
+      text << %{style="#{style}" \n} unless style == ""
+      
+      text << %{font-size="#{local_options[:font_size]}"
        fill="#{local_options[:stroke]}"
        font-family="Sans"
        >#{input_text}
        </text>
 }
-      #{centre_text}"
-      # xml:space="preserve"
-      #Do not know height or width of text only the anchor
-      update_size(x, y)
-      @body << text
+       #{centre_text}"
+       # xml:space="preserve"
+       #Do not know height or width of text only the anchor
+       update_size(x, y)
+       @body << text
     end
 
     def options(opts={})
