@@ -46,16 +46,26 @@ Second Example, From the Examples directory
     canvas.line(20,80,100,0)
     canvas.line(20,105,100,0)
     
+    #Set Global Options
     options = {:font_size=>'12px'}
     canvas.options(options)
     canvas.text(20,100, 'HelloWorld!')
     
+    #Set Local Options
     canvas.text(20,130, 'HelloWorld!', {:font_size=>'18px'})
     
     canvas.to_file('shapes.svg')
 
+Text placment options
+
+    canvas.text(0,20, 'HelloWorld!', {:text_horizontal_centre=>true})
+    canvas.text(0,0,  'HelloWorld!', {:text_vertical_centre=>true})
+    # Centre Horizontally and Vertically
+    canvas.text(0,40, 'HelloWorld!', {:text_centre=>true})
+    
+
+
 TODO
 ----
 
-Improve text placement options  
 Add support for path
