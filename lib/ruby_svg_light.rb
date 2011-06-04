@@ -117,7 +117,6 @@ module RubySVGLight
 
 
       style = ""
-
       style << "dominant-baseline: central; " if text_vertical_centre 
 
       style << "text-anchor: top; "    if local_options[:text_horizontal_top]
@@ -128,11 +127,13 @@ module RubySVGLight
       #Stroke is outline
       #fill is normal font. ie for text fill gets stroke colour
       text = %{<text
-       x="#{x}" y="#{y}" \n}
+       x="#{x}" y="#{y}" }
       
-      text << %{style="#{style}" \n} unless style == ""
+      text << %{
+       style="#{style}" } unless style == ""
       
-      text << %{font-size="#{local_options[:font_size]}"
+      text << %{
+       font-size="#{local_options[:font_size]}"
        fill="#{local_options[:stroke]}"
        font-family="Sans"
        >#{input_text}
