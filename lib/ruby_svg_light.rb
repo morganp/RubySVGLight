@@ -120,9 +120,9 @@ module RubySVGLight
 
       style << "dominant-baseline: central; " if text_vertical_centre 
 
-      style << "text-anchor:top; "    if local_options[:text_horizontal_top]
-      style << "text-anchor:middle; " if text_horizontal_centre
-      style << "text-anchor:bottom; " if local_options[:text_horizontal_bottom]
+      style << "text-anchor: top; "    if local_options[:text_horizontal_top]
+      style << "text-anchor: middle; " if text_horizontal_centre
+      style << "text-anchor: bottom; " if local_options[:text_horizontal_bottom]
 
 
       #Stroke is outline
