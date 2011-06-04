@@ -1,6 +1,6 @@
 
 module RubySVGLight
-  VERSION = '0.0.2'
+  VERSION = '0.0.3'
 
   class Document
     attr_reader :body
@@ -51,7 +51,6 @@ module RubySVGLight
       fill="#{local_options[:fill]}"/>
       }
 
-      #The call below should be in method missing add_[circle|line|rectangle]
       update_size(x+radius, y+radius)
       @body << text
     end
@@ -139,8 +138,6 @@ module RubySVGLight
        >#{input_text}
        </text>
 }
-       #{centre_text}"
-       # xml:space="preserve"
        #Do not know height or width of text only the anchor
        update_size(x, y)
        @body << text
@@ -197,12 +194,6 @@ module RubySVGLight
     end
 
 
-    #def finalise
-    #  #Maybe add the initial and closing things here so we are just noramlly dealing drawn components
-    #  @body.insert(0,  header)
-    #  @body.insert(-1, footer)
-    #end
-
     # to_file includes header and footers for a complete svg file
     def to_file( filename )
       File.open(filename, 'w') do |f|
@@ -238,7 +229,11 @@ end
 
 
 if $0 == __FILE__
+  filename = 'test.svg'
+
   a = RubySVGLight::Document.new()
   a.circle(20,10,10)
-  a.to_file('test.svg')
+  a.to_file( filename )
+
+  puts "Created #{filename}"
 end
