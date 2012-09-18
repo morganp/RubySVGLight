@@ -45,7 +45,7 @@ describe RubySVGLight do
     @canvas.line(10,20,30,40)
 
     #SVG lines are drawn specifying start and end coordinates. 
-    #RubySVGLite uses start coordinates and height width to make it consitent with other shapes.
+    #RubySVGLite uses start coordinates and height width to make it consistent with other shapes.
     @canvas.to_s.should match shape_contains( 'line' )
     @canvas.to_s.should include %{x1="10"}
     @canvas.to_s.should include %{y1="20"}
