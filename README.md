@@ -37,6 +37,18 @@ Examples
     a.circle(20,10,10)
     a.to_file('test.svg')
 
+From version 0.1.0 blocks can be used:
+
+    # Implicit Block
+    RubySVGLight::Document.generate("implicit.svg") do
+      circle(10,20,30)
+    end
+
+    # Explicit Block
+    RubySVGLight::Document.generate("explicit.svg") do |svg|
+      svg.circle(10,20,30)
+    end
+
 Second Example, From the Examples directory
 
     require 'ruby_svg_light'
