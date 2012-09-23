@@ -1,9 +1,8 @@
 
 NAME = "ruby_svg_light"
 
-Dir.chdir( './lib/')
-puts require NAME
-Dir.chdir( './../')
+$:.push File.expand_path("../lib", NAME)
+require NAME
 
 Gem::Specification.new do |s|
   s.name         = NAME
@@ -14,7 +13,7 @@ Gem::Specification.new do |s|
   s.authors      = "Morgan Prior"
   s.email        = NAME + "_gem@amaras-tech.co.uk"
   s.description  = %{A basic library for building SVG files. Not all properties of SVG are supported}
-  s.files        = [Dir.glob("LICENSE.rtf")]
+  s.files        = [Dir.glob("LICENSE")]
   s.files        += Dir.glob("README.md")
   s.files        += Dir.glob("HISTORY.md")
   s.files        += Dir.glob("Rakefile")
