@@ -1,5 +1,6 @@
 RubySVGLight
 ============
+[![Gem Version](https://badge.fury.io/rb/ruby_svg_light.png)](http://badge.fury.io/rb/ruby_svg_light)
 
 Install
 -------
